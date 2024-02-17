@@ -1,4 +1,7 @@
 # SRP
+from pathlib import Path
+
+
 class Journal: 
     def __init__(self) -> None:
         self.entries = []
@@ -12,21 +15,29 @@ class Journal:
         del self.entries[pos]
 
     
-    def save(self, filename: str):
-        file = open(filename, 'w')
-        file.write(str(self))
-        file.close()
+    # def save(self, filename: str):
+    #     file = open(filename, 'w')
+    #     file.write(str(self))
+    #     file.close()
 
-    def load(self, filename):
-        pass
+    # def load(self, filename):
+    #     pass
 
-    def low_from_web(self, uri):
-        pass
+    # def low_from_web(self, uri):
+    #     pass
     
     
     def __str__(self) -> str:
         return '\n'.join(self.entries)
     
+
+class PersistenceManager:
+    @staticmethod
+    def save_to_file(journal: Journal, filename: str):
+        file = open(filename, 'w')
+        file.write(str(journal))
+        file.close()
+
 
 
 j = Journal()
@@ -34,3 +45,6 @@ j = Journal()
 j.add_entry('I went to library')
 j.add_entry('I ate a burger')
 print(f'Journal entries: \n{j}')
+
+file = f'{Path.cwd()}/journal.txt'
+PersistenceManager.save_to_file(j, file)
