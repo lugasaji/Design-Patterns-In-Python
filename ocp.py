@@ -35,4 +35,10 @@ class ProductFilter:
             if p.size == size:
                 yield p
 
+    
+    def filter_by_size_and_color(self, products:List[Product], size: Size, color: Color):
+        for p in products:
+            if p.color == color and p.size == size:
+                yield p
+
                 
