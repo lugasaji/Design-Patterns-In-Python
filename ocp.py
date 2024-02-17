@@ -72,8 +72,8 @@ class sizeSpecification(Specification):
         return item.size == self.size
     
 
-class BetterFilter(Filter):
-    """
-    docstring
-    """
-    pass
+class BetterFilter(Filter): 
+    def filter(self, items: List[Product], spec: Specification):
+        for item in items:
+            if spec.is_satisfied(item):
+                yield item
