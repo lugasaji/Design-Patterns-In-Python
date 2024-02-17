@@ -23,6 +23,8 @@ class Product:
     
 
 
+# It's not scalable because if there are others parameters like Cost, Weight, dimensions... the class ProductFilter will be very big
+
 class ProductFilter:
     def filter_by_color(self, products: List[Product], color: Color):
         for p in products:
@@ -41,4 +43,37 @@ class ProductFilter:
             if p.color == color and p.size == size:
                 yield p
 
-                
+            
+
+# Pattern SPECIFICATION to solve this violation
+
+class Specification:
+    def is_satisfied(self, item: Product):
+        pass
+
+
+class Filter:
+    def filter(self, items: List[Product], spec: Specification):
+        pass
+
+
+class colorSpecification(Specification):
+    def __init__(self, color):
+        self.color = color
+    
+    def is_satisfied(self, item: Product):
+        return item.color == self.color
+
+class sizeSpecification(Specification):
+    def __init__(self, size):
+        self.size = size
+    
+    def is_satisfied(self, item: Product):
+        return item.size == self.size
+    
+
+class BetterFilter(Filter):
+    """
+    docstring
+    """
+    pass
