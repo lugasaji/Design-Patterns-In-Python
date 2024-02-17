@@ -30,5 +30,9 @@ class ProductFilter:
                 yield p
 
 
+    def filter_by_size(self, products: List[Product], size: Size):
+        for p in products:
+            if p.size == size:
+                yield p
 
                 
