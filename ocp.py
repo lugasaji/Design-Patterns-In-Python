@@ -2,6 +2,7 @@
 
 from enum import Enum
 from typing import List
+from xmlrpc.client import Boolean
 
 
 class Color(Enum):
@@ -57,7 +58,7 @@ class AndSpecification(Specification):
         self.args = args
 
     def is_satisfied(self, item: Product):
-        return all(map(lambda spec: spec.is_satisfied(Product) , self.args))
+        return all(map(lambda spec: spec.is_satisfied(item) , self.args))
 
 
 class Filter:
@@ -66,17 +67,17 @@ class Filter:
 
 
 class colorSpecification(Specification):
-    def __init__(self, color):
+    def __init__(self, color: Color) -> None:
         self.color = color
     
-    def is_satisfied(self, item: Product):
+    def is_satisfied(self, item: Product) -> bool:
         return item.color == self.color
 
 class sizeSpecification(Specification):
-    def __init__(self, size):
+    def __init__(self, size) -> None:
         self.size = size
     
-    def is_satisfied(self, item: Product):
+    def is_satisfied(self, item: Product) -> bool:
         return item.size == self.size
     
 
@@ -112,4 +113,8 @@ if __name__ == '__main__':
     for p in pbfilter.filter(products, large):
         print(f' - {p.name} is large')
 
-    
+    print('Blue large items: ')
+    blue = colorSpecification(Color.BLUE)
+    blue_and_large = AndSpecification(blue, large)
+    for p in pbfilter.filter(products, blue_and_large):
+        print(f' - {p.name} is large and blue')
