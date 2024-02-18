@@ -77,3 +77,29 @@ class BetterFilter(Filter):
         for item in items:
             if spec.is_satisfied(item):
                 yield item
+
+
+if __name__ == '__main__':
+    apple = Product('Apple', Color.GREEN, Size.SMALL)
+    tree = Product('Tree', Color.GREEN, Size.LARGE)
+    house = Product('House', Color.BLUE, Size.LARGE)
+
+    products = [apple, tree, house]
+
+    pfilter = ProductFilter()
+    print('Green products (old)')
+    for p in pfilter.filter_by_color(products, Color.GREEN):
+        print(f' - {p.name} is green')
+
+
+    pbfilter = BetterFilter()
+    print('Green products (new):')
+    green = colorSpecification(Color.GREEN)
+    for p in pbfilter.filter(products, green):
+        print(f' - {p.name} is green')
+    
+
+    print('Large products:')
+    large = sizeSpecification(Size.LARGE)
+    for p in pbfilter.filter(products, large):
+        print(f' - {p.name} is large')
