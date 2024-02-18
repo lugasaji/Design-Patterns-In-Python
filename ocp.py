@@ -52,6 +52,14 @@ class Specification:
         pass
 
 
+class AndSpecification(Specification):
+    def __init__(self, *args: Specification) -> None:
+        self.args = args
+
+    def is_satisfied(self, item: Product):
+        return all(map(lambda spec: spec.is_satisfied(Product) , self.args))
+
+
 class Filter:
     def filter(self, items: List[Product], spec: Specification):
         pass
@@ -103,3 +111,5 @@ if __name__ == '__main__':
     large = sizeSpecification(Size.LARGE)
     for p in pbfilter.filter(products, large):
         print(f' - {p.name} is large')
+
+    
