@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 class Journal: 
+    
     def __init__(self) -> None:
         self.entries = []
         self.count = 0
@@ -32,6 +33,7 @@ class Journal:
     
 
 class PersistenceManager:
+
     @staticmethod
     def save_to_file(journal: Journal, filename: str):
         file = open(filename, 'w')
